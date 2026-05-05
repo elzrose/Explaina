@@ -106,7 +106,7 @@ ${code}`
 
   return (
     <div style={{ padding: "20px", fontFamily: "Arial" }}>
-      <h1>AI Code Explainer (Gemini)</h1>
+      <h1>AI Code Explainer </h1>
       <p>Paste your code and get explanation</p>
 
       {/* INPUT */}
