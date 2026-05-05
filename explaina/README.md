@@ -1,16 +1,88 @@
-# React + Vite
+# 🧠 Explaina — AI Code Explainer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Explaina is a simple AI-powered web app that helps you understand code in plain English.
 
-Currently, two official plugins are available:
+Paste your code, click a button, and get a clear explanation generated using AI.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* ✨ AI-generated code explanations
+* 🧾 Paste any code snippet
+* ⚡ Instant response
+* 🧠 Beginner-friendly explanations
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Tech Stack
+
+* React (Vite)
+* JavaScript
+* Gemini API (Google AI)
+
+---
+
+## 📦 Installation
+
+```bash
+git clone https://github.com/your-username/explaina.git
+cd explaina
+npm install
+npm run dev
+```
+
+---
+
+## 🔑 API Setup
+
+1. Go to: https://aistudio.google.com/
+2. Generate an API key
+3. Replace this in your code:
+
+```js
+YOUR_API_KEY
+```
+
+⚠️ Do not upload your API key to GitHub.
+
+---
+
+## 🧪 Example
+
+### Input:
+
+```c
+int a = 5;
+int b = a + 2;
+```
+
+### Output:
+
+AI explains the code step-by-step in simple terms.
+
+---
+
+## 📌 Status
+
+🚧 In progress — currently building core AI explanation feature
+
+---
+
+## 🔮 Future Plans
+
+* Step-by-step execution visualizer
+* Memory tracking
+* Interactive code walkthrough
+
+---
+
+## 🎯 Goal
+
+Make code easier to understand for beginners.
+
+---
+
+## 📄 License
+
+This project is open source.
