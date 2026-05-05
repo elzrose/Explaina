@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Cubes from "./Cubes";
 
 function App() {
   const [code, setCode] = useState("");
@@ -9,7 +10,6 @@ function App() {
     if (!code.trim()) return;
 
     setLoading(true);
-    setAiResponse("");
 
     try {
       const res = await fetch(
@@ -25,7 +25,7 @@ function App() {
                 parts: [
                   {
                     text: `You are a programming teacher explaining code execution.
-
+you dont have to show the code again in the beginning.
 I want you to explain the provided code EXACTLY in the format of the following example. Do not deviate from this format.
 
 ### FORMAT EXAMPLE ###
@@ -85,11 +85,12 @@ ${code}`
           })
         }
       );
+
       console.log("STATUS:", res.status);
+
       const data = await res.json();
       console.log("FULL RESPONSE:", data);
 
-      // Extract AI response safely
       const text =
         data?.candidates?.[0]?.content?.parts?.[0]?.text ||
         "No response from AI";
@@ -105,51 +106,58 @@ ${code}`
   };
 
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial" }}>
-      <h1>AI Code Explainer </h1>
-      <p>Paste your code and get explanation</p>
-
-      {/* INPUT */}
-      <textarea
-        rows="10"
-        cols="60"
-        placeholder="Paste your code here..."
-        value={code}
-        onChange={(e) => setCode(e.target.value)}
+    <>
+      {/* BACKGROUND */}
+      <Cubes
+        gridSize={14}
+        maxAngle={45}
+        radius={3}
+        cellGap={6}
+        borderStyle="2px dashed #00ffcc55"
+        faceColor="#0a0a0a"
+        rippleColor="#00ffcc"
+        rippleSpeed={1.5}
+        autoAnimate
+        rippleOnClick
       />
 
-      <br /><br />
+      <div className="app">
+        <h1 className="title">EXPLAINA</h1>
+        <p className="subtitle">AI Code Explainer</p>
 
-      {/* BUTTON */}
-      <button onClick={explainWithAI}>
-        Explain with AI
-      </button>
+        {/* INPUT */}
+        <textarea
+          placeholder="Paste your code here..."
+          value={code}
+          onChange={(e) => setCode(e.target.value)}
+        />
 
-      {/* LOADING */}
-      {loading && <p>Thinking... 🤖</p>}
+        {/* BUTTONS */}
+        <div style={{ marginTop: "10px" }}>
+          <button onClick={explainWithAI}>
+            Explain with AI
+          </button>
 
-      {/* OUTPUT */}
-      <div style={{ marginTop: "20px" }}>
-        <h3>AI Explanation:</h3>
+          <button
+            onClick={() => setAiResponse("")}
+            style={{ marginLeft: "10px", background: "#333", color: "#fff" }}
+          >
+            Clear
+          </button>
+        </div>
 
-        <pre
-          style={{
-            background: "#0a0a0a",
-            color: "#00ff00",
-            padding: "15px",
-            whiteSpace: "pre-wrap",
-            textAlign: "left",
-            fontFamily: "monospace",
-            fontSize: "14px",
-            border: "1px solid #333",
-            borderRadius: "5px",
-            margin: "0"
-          }}
-        >
-          {aiResponse}
-        </pre>
+        {/* OUTPUT */}
+        <div className="output">
+          <h3>Explanation:</h3>
+
+          {loading ? (
+            <p>Thinking... 🤖</p>
+          ) : (
+            <pre>{aiResponse || "No explanation yet."}</pre>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
