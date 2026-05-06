@@ -13,18 +13,19 @@ function App() {
 
     try {
       const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${import.meta.env.VITE_GEMINI_API_KEY}`,
+        "https://api.groq.com/openai/v1/chat/completions",
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${import.meta.env.VITE_GROQ_API_KEY}`
           },
           body: JSON.stringify({
-            contents: [
+            model: "llama-3.3-70b-versatile",
+            messages: [
               {
-                parts: [
-                  {
-                    text: `You are a programming teacher explaining code execution.
+                role: "user",
+                content: `You are a programming teacher explaining code execution.
 you dont have to show the code again in the beginning.
 I want you to explain the provided code EXACTLY in the format of the following example. Do not deviate from this format.
 
@@ -78,8 +79,6 @@ Now, explain the following code using the EXACT same style and format shown abov
 
 Code:
 ${code}`
-                  }
-                ]
               }
             ]
           })
@@ -92,7 +91,7 @@ ${code}`
       console.log("FULL RESPONSE:", data);
 
       const text =
-        data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+        data?.choices?.[0]?.message?.content ||
         "No response from AI";
 
       setAiResponse(text);
@@ -139,7 +138,7 @@ ${code}`
           </button>
 
           <button
-            onClick={() => setAiResponse("")}
+            onClick={() => setCode("")}
             style={{ marginLeft: "10px", background: "#333", color: "#fff" }}
           >
             Clear
